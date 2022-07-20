@@ -149,13 +149,13 @@ def main():
         threading.Thread(target=send_usage_stats).start()
 
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-    state = persist_messages(config.get('delimiter', ','),
-                             config.get('quotechar', '"'),
-                             config.get('filename', ''),
-                             input_messages,
-                             config.get('destination_path', ''),
-                             config.get('fixed_headers'),
-                             config.get('validate', True))
+    state = persist_messages(filename=config.get('filename', ''),
+                             delimiter=config.get('delimiter', ','),
+                             quotechar=config.get('quotechar', '"'),
+                             messages=input_messages,
+                             destination_path=config.get('destination_path', ''),
+                             fixed_headers=config.get('fixed_headers'),
+                             validate=config.get('validate', True))
 
     emit_state(state)
     logger.debug("Exiting normally")
