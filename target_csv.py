@@ -87,7 +87,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
                 writer = csv.DictWriter(csvfile,
                                         headers[o['stream']],
                                         extrasaction='ignore',
-                                        delimiter=delimiter,
+                                        delimiter='\t',
                                         quotechar=quotechar)
                 if file_is_empty:
                     writer.writeheader()
@@ -162,3 +162,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
