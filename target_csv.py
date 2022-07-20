@@ -150,7 +150,7 @@ def main():
 
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
     state = persist_messages(filename=config.get('filename', ''),
-                             delimiter=config.get('delimiter', ','),
+                             delimiter=config.get('delimiter', '\t'),
                              quotechar=config.get('quotechar', '"'),
                              messages=input_messages,
                              destination_path=config.get('destination_path', ''),
