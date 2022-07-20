@@ -87,7 +87,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
                 writer = csv.DictWriter(csvfile,
                                         headers[o['stream']],
                                         extrasaction='ignore',
-                                        delimiter=str(delimiter),
+                                        delimiter=delimiter,
                                         quotechar=quotechar)
                 if file_is_empty:
                     writer.writeheader()
@@ -149,7 +149,7 @@ def main():
         threading.Thread(target=send_usage_stats).start()
 
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-    state = persist_messages(config.get('delimiter', ','),
+    state = persist_messages(config.get('delimiter', str('\t')),
                              config.get('quotechar', '"'),
                              input_messages,
                              config.get('destination_path', ''),
