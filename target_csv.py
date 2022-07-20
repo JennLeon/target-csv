@@ -87,7 +87,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
                 writer = csv.DictWriter(csvfile,
                                         headers[o['stream']],
                                         extrasaction='ignore',
-                                        delimiter='\t',
+                                        delimiter=str(delimiter),
                                         quotechar=quotechar)
                 if file_is_empty:
                     writer.writeheader()
@@ -107,7 +107,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
             key_properties[stream] = o['key_properties']
         else:
             logger.warning("Unknown message type {} in message {}"
-                            .format(o['type'], o))
+                           .format(o['type'], o))
 
     return state
 
@@ -149,7 +149,7 @@ def main():
         threading.Thread(target=send_usage_stats).start()
 
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-    state = persist_messages(config.get('delimiter', b'\t'),
+    state = persist_messages(config.get('delimiter', ','),
                              config.get('quotechar', '"'),
                              input_messages,
                              config.get('destination_path', ''),
@@ -162,5 +162,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
