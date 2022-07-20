@@ -149,7 +149,7 @@ def main():
         threading.Thread(target=send_usage_stats).start()
 
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-    state = persist_messages(config.get('delimiter', ','),
+    state = persist_messages(config.get('delimiter', b'\t'),
                              config.get('quotechar', '"'),
                              input_messages,
                              config.get('destination_path', ''),
