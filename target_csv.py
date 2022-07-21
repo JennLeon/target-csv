@@ -45,6 +45,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
     key_properties = {}
     headers = {}
     validators = {}
+    delimiter = str(delimiter)
 
     now = datetime.now().strftime('%Y%m%dT%H%M%S')
 
@@ -149,12 +150,12 @@ def main():
         threading.Thread(target=send_usage_stats).start()
 
     input_messages = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-    state = persist_messages(config.get('delimiter', str('\t')),
-                             config.get('quotechar', '"'),
-                             input_messages,
-                             config.get('destination_path', ''),
-                             config.get('fixed_headers'),
-                             config.get('validate', True))
+    state = persist_messages(delimiter=config.get('delimiter', ','),
+                             quotechar=config.get('quotechar', '"'),
+                             messages=input_messages,
+                             destination_path=config.get('destination_path', ''),
+                             fixed_headers=config.get('fixed_headers'),
+                             validate=config.get('validate', True))
 
     emit_state(state)
     logger.debug("Exiting normally")
