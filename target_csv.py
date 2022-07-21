@@ -48,6 +48,9 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
     logger.debug("The current delimiter {}".format(delimiter))
     now = datetime.now().strftime('%Y%m%dT%H%M%S')
 
+    if delimiter == '\\t':
+        delimiter = str('\t')
+
     for message in messages:
         try:
             o = singer.parse_message(message).asdict()
