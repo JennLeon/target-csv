@@ -45,8 +45,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
     key_properties = {}
     headers = {}
     validators = {}
-    delimiter = str(delimiter)
-
+    logger.debug("The current delimiter {}".format(delimiter))
     now = datetime.now().strftime('%Y%m%dT%H%M%S')
 
     for message in messages:
@@ -88,7 +87,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
                 writer = csv.DictWriter(csvfile,
                                         headers[o['stream']],
                                         extrasaction='ignore',
-                                        delimiter=delimiter,
+                                        delimiter=str(delimiter),
                                         quotechar=quotechar)
                 if file_is_empty:
                     writer.writeheader()
