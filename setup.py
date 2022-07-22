@@ -12,7 +12,8 @@ setup(name='target-csv',
       install_requires=[
           'jsonschema==2.6.0',
           'singer-python==5.12.1',
-          'simplejson==3.11.1'
+          'simplejson==3.11.1',
+          'google-cloud-storage==2.3.0'
       ],
       entry_points='''
           [console_scripts]

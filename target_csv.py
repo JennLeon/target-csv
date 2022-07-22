@@ -48,8 +48,11 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
     logger.debug("The current delimiter {}".format(delimiter))
     now = datetime.now().strftime('%Y%m%dT%H%M%S')
 
+    file_extension = '.csv'
+
     if delimiter == '\\t':
         delimiter = str('\t')
+        file_extension = '.tsv'
 
     for message in messages:
         try:
@@ -65,7 +68,7 @@ def persist_messages(delimiter, quotechar, messages, destination_path, fixed_hea
             if validate:
                 validators[o['stream']].validate(o['record'])
 
-            filename = o['stream'] + '.csv'
+            filename = o['stream'] + file_extension
             filename = os.path.expanduser(os.path.join(destination_path, filename))
             file_is_empty = (not os.path.isfile(filename)) or os.stat(filename).st_size == 0
 
